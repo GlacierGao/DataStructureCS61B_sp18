@@ -75,24 +75,30 @@ public class LinkedListDequeTest {
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        // should be empty 
+        // should be empty
         boolean passed = checkEmpty(true, lld1.isEmpty());
 
         lld1.addFirst(10);
-        // should not be empty 
+        // should not be empty
         passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
         lld1.removeFirst();
-        // should be empty 
+        // should be empty
         passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
         printTestStatus(passed);
-		
+
     }
+
+//    public static void removeFromEmptyLL() {
+//        System.out.println("Running remove test from an empty linked list...");
+//        LinkedListDeque<Integer> testedLL = new LinkedListDeque<>();
+//
+//    }
 
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
     }
-} 
+}

@@ -39,6 +39,7 @@ public class ArrayDeque<T> {
         }
         arr[nextFirst] = item;
         nextFirst = leftIndexOfInput(nextFirst);
+        size++;
     }
 
     /* Adds an item of type T to the back of the deque. */
@@ -50,6 +51,7 @@ public class ArrayDeque<T> {
         }
         arr[nextLast] = item;
         nextLast = rightIndexOfInput(nextLast);
+        size++;
     }
 
     /* Returns true if deque is empty, false otherwise. */
