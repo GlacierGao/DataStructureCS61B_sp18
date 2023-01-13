@@ -8,11 +8,19 @@ public class ArrayDequeTest {
     }
 
     public static void printTestingStatus(boolean passed) {
-        if (passed == true) {
+        if (passed) {
             System.out.println("Test passed!");
         } else {
             System.out.println("Test failed!");
         }
+    }
+
+    public static boolean checkGetInt(int expected, int actual) {
+        if (expected != actual) {
+            System.out.println("Expected = " + expected + ", but actual = " + actual + ".");
+            return false;
+        }
+        return true;
     }
 
     public static void testAddAndRemove() {
@@ -28,11 +36,23 @@ public class ArrayDequeTest {
         // remove(Last) the element, now the AD should be empty
         testSimpleAD.removeLast();
         passed = checkEmpty(true, testSimpleAD.isEmpty()) && passed;
+
+        printTestingStatus(passed);
+    }
+
+    public static void testTestAddAndGet() {
+        ArrayDeque<Integer> testArr = new ArrayDeque<>();
+        for (int i = 0; i < 9; i++) {
+            testArr.addLast(0);
+        }
+        boolean passed = checkGetInt(0, testArr.get(0));
+
+        printTestingStatus(passed);
     }
 
     public static void main(String[] args) {
         System.out.println("Running the test...");
         testAddAndRemove();
-        System.out.println("You have passed all the tests!!!!!! ");
+        testTestAddAndGet();
     }
 }

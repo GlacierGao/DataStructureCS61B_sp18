@@ -21,20 +21,19 @@ public class ArrayDeque<T> {
                         rightBoundIndex
     finally the method returns the array which is resized successfully.
      */
-    private T[] resizeArrayHelper(T[] oldArray, int leftBoundIndex) {
+    private void resizeArrayHelper(int leftBoundIndex) {
         int rightBoundIndex = leftBoundIndex + 1;
-        T[] resizedArray = (T[]) new Object[oldArray.length + 8];
-        System.arraycopy(oldArray, 0, resizedArray, 0, leftBoundIndex + 1);
-        System.arraycopy(oldArray, rightBoundIndex, resizedArray, rightBoundIndex + 8, oldArray.length - rightBoundIndex);
-        oldArray = resizedArray;
-        return oldArray;
+        T[] resizedArray = (T[]) new Object[arr.length + 8];
+        System.arraycopy(arr, 0, resizedArray, 0, leftBoundIndex + 1);
+        System.arraycopy(arr, rightBoundIndex, resizedArray, rightBoundIndex + 8, arr.length - rightBoundIndex);
+        arr = resizedArray;
     }
 
     /* Adds an item of type T to the front of the deque. */
     public void addFirst(T item) {
         // If the array is full, add 8 spaces before the existing array.
         if (size == arr.length) {
-            resizeArrayHelper(arr, nextFirst);
+            resizeArrayHelper(nextFirst);
             nextFirst += 8;
         }
         arr[nextFirst] = item;
@@ -46,7 +45,7 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         // If the array is full, add 8 spaces before the existing array.
         if (size == arr.length) {
-            resizeArrayHelper(arr, nextFirst);
+            resizeArrayHelper(nextFirst);
             nextFirst += 8;
         }
         arr[nextLast] = item;
@@ -66,13 +65,13 @@ public class ArrayDeque<T> {
 
     private int rightIndexOfInput(int index) {
         index++;
-        if (index >= arr.length - 1) index = 0;
+        if (index > arr.length - 1) index = 0;
         return index;
     }
 
     private int leftIndexOfInput(int index) {
         index--;
-        if (index <= 0) index = arr.length - 1;
+        if (index < 0) index = arr.length - 1;
         return index;
     }
 
