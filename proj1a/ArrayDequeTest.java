@@ -50,9 +50,22 @@ public class ArrayDequeTest {
         printTestingStatus(passed);
     }
 
+    public static void testd00002() {
+        ArrayDeque<Integer> testArr = new ArrayDeque<>();
+        for (int i = 0; i < 24; i++) {
+            testArr.addFirst(i);
+        }
+//        testArr.removeFirst();
+        for (int i = 0; i < 18; i++) {
+            testArr.removeLast();
+        }
+//        testArr.removeLast();
+    }
+
     public static void main(String[] args) {
         System.out.println("Running the test...");
         testAddAndRemove();
         testTestAddAndGet();
+        testd00002();
     }
 }
