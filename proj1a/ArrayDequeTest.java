@@ -52,14 +52,17 @@ public class ArrayDequeTest {
 
     public static void testd00002() {
         ArrayDeque<Integer> testArr = new ArrayDeque<>();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 1; i <= 9; i++) {
             testArr.addFirst(i);
         }
-//        testArr.removeFirst();
-        for (int i = 0; i < 18; i++) {
-            testArr.removeLast();
-        }
-//        testArr.removeLast();
+        testArr.removeFirst();
+        int check = testArr.removeLast();
+        boolean passed = checkGetInt(1, check);
+        printTestingStatus(passed);
+//        for (int i = 0; i < 18; i++) {
+//            testArr.removeLast();
+//        }
+
     }
 
     public static void main(String[] args) {

@@ -150,7 +150,7 @@ public class ArrayDeque<T> {
         nextFirst = rightIndexOfInput(nextFirst);// 不对 左边要是已经被删了/空的怎么办？ 清内存要再想；什么情况下return null？除了空的时候。
         size--;
         T itemToBeReturned = arr[nextFirst];
-        arr[nextFirst] = null;
+//        arr[nextFirst] = null;
         if (arr.length > 16 && size / arr.length < 0.25) {
             resizeDequeAfterRemoval();
         }
@@ -164,7 +164,7 @@ public class ArrayDeque<T> {
         nextLast = leftIndexOfInput(nextLast);
         size--;
         T itemToBeReturned = arr[nextLast];
-        arr[nextLast] = null;
+//        arr[nextLast] = null;
         if (arr.length > 16 && size / arr.length < 0.25) {
             resizeDequeAfterRemoval();
         }
