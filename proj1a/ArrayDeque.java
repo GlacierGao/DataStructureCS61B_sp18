@@ -13,23 +13,30 @@ public class ArrayDeque<T> {
     }
 
     /* traverse the AD. */
-    private T[] traverseDeque() {
-        int headIndex = getHeadIndex();
-        int tailIndex = getTailIndex();
-        T[] traversedDeque = (T[]) new Object[size];
-        int indexOfTD = 0;
-        for (int i = headIndex; indexOfTD < size; i = rightIndexOfInput(i), indexOfTD++) {
-            traversedDeque[indexOfTD] = arr[i];
-        }
-        return traversedDeque;
-    }
+//    private T[] traverseDeque() {
+//        int headIndex = getHeadIndex();
+//        int tailIndex = getTailIndex();
+//        T[] traversedDeque = (T[]) new Object[size];
+//        int indexOfTD = 0;
+//        for (int i = headIndex; indexOfTD < size; i = rightIndexOfInput(i), indexOfTD++) {
+//            traversedDeque[indexOfTD] = arr[i];
+//        }
+//        return traversedDeque;
+//    }
 
     /* A helper method that resize the array when the oldArray is full
     while we need to add new items to it. */
     private T[] resizeArray() {
         T[] resizedArray = (T[]) new Object[arr.length + 8];
-        T[] traversedArray = traverseDeque();
-        System.arraycopy(traversedArray, 0, resizedArray, 0, traversedArray.length);
+//        T[] traversedArray = traverseDeque();
+//        System.arraycopy(traversedArray, 0, resizedArray, 0, traversedArray.length);
+//        return resizedArray;
+        int headIndex = getHeadIndex();
+        int tailIndex = getTailIndex();
+        int indexOfTD = 0;
+        for (int i = headIndex; indexOfTD < size; i = rightIndexOfInput(i), indexOfTD++) {
+            resizedArray[indexOfTD] = arr[i];
+        }
         return resizedArray;
     }
 
@@ -118,22 +125,22 @@ public class ArrayDeque<T> {
     /* Prints the items in the deque from first to
     last, separated by a space. */
     public void printDeque() {
-        T[] printArr = traverseDeque();
-        for (int i = 0; i < printArr.length; i++) {
-            System.out.print(printArr[i] + " ");
-        }
-//        int headIndex = getHeadIndex();
-//        int tailIndex = getTailIndex();
-//        T[] printArr = (T[]) new Object[arr.length];
-//        if (judgeWhetherTurning()) {
-//            System.arraycopy(arr, headIndex, printArr, 0, arr.length - headIndex);
-//            System.arraycopy(arr, 0, printArr, arr.length - headIndex, headIndex);
-//        } else {
-//            printArr = arr;
-//        }
-//        for (int i = 0; i < size; i++) {
+//        T[] printArr = traverseDeque();
+//        for (int i = 0; i < printArr.length; i++) {
 //            System.out.print(printArr[i] + " ");
 //        }
+        int headIndex = getHeadIndex();
+        int tailIndex = getTailIndex();
+        T[] printArr = (T[]) new Object[arr.length];
+        if (judgeWhetherTurning()) {
+            System.arraycopy(arr, headIndex, printArr, 0, arr.length - headIndex);
+            System.arraycopy(arr, 0, printArr, arr.length - headIndex, headIndex);
+        } else {
+            printArr = arr;
+        }
+        for (int i = 0; i < size; i++) {
+            System.out.print(printArr[i] + " ");
+        }
     }
 
     private void remove8SpareSpace(int startSpareSpaceIndex) {
