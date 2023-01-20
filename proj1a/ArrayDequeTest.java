@@ -101,12 +101,40 @@ public class ArrayDequeTest {
         printTestingStatus(passed);
     }
 
+    public static void d011() {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        a.addFirst(0);
+        int test = a.get(0);
+        a.addLast(2);
+        a.addLast(3);
+        test = a.removeLast();
+        a.addFirst(7);
+        test = a.get(0);
+        test = a.removeFirst();
+        a.addLast(10);
+        a.addFirst(11);
+        a.addLast(12);
+        a.addFirst(13);
+        a.addFirst(14);
+        a.addFirst(15);
+        test = a.removeLast();
+        a.addLast(17);
+        test = a.removeLast();
+        a.addLast(19);
+        a.addLast(20);
+        test = a.get(2);
+        test = a.removeFirst();
+        boolean passed = checkGetInt(15, test);
+        printTestingStatus(passed);
+    }
+
     public static void main(String[] args) {
         System.out.println("Running the test...");
 //        testAddAndRemove();
 //        testTestAddAndGet();
 //        testd00002();
 //        testaFrFiE();
-        d008();
+//        d008();
+        d011();
     }
 }

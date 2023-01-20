@@ -12,8 +12,30 @@ public class ArrayDeque<T> {
         nextLast = 5;
     }
 
+    /* traverse the AD. */
+    private T[] traverseDeque() {
+        int headIndex = getHeadIndex();
+        int tailIndex = getTailIndex();
+        T[] traversedDeque = (T[]) new Object[size];
+        int indexOfTD = 0;
+        for (int i = headIndex; indexOfTD < size; i = rightIndexOfInput(i), indexOfTD++) {
+            traversedDeque[indexOfTD] = arr[i];
+        }
+        return traversedDeque;
+    }
+
     /* A helper method that resize the array when the oldArray is full
-    while we need to add new items to it.
+    while we need to add new items to it. */
+    private T[] resizeArray() {
+        T[] resizedArray = (T[]) new Object[arr.length + 8];
+        T[] traversedArray = traverseDeque();
+        System.arraycopy(traversedArray, 0, resizedArray, 0, traversedArray.length);
+//        nextFirst = resizedArray.length - 1;
+//        nextLast = traversedArray.length;
+        return resizedArray;
+    }
+
+    /* an abandoned method.
     @param:
     T[] oldArray: the array needed to be resized
     int leftBoundIndex: the author defines that the new spaces will be
@@ -21,36 +43,40 @@ public class ArrayDeque<T> {
                         rightBoundIndex
     finally the method returns the array which is resized successfully.
      */
-    private void resizeArrayHelper(int leftBoundIndex) {
-        int rightBoundIndex = leftBoundIndex + 1;
-        T[] resizedArray = (T[]) new Object[arr.length + 8];
-        System.arraycopy(arr, 0, resizedArray, 0, leftBoundIndex + 1);
-        System.arraycopy(arr, rightBoundIndex, resizedArray, rightBoundIndex + 8, arr.length - rightBoundIndex);
-        arr = resizedArray;
-    }
+//    private void resizeArrayHelper(int leftBoundIndex) {
+//        int rightBoundIndex = rightIndexOfInput(leftBoundIndex);
+//        T[] resizedArray = (T[]) new Object[arr.length + 8];
+//        System.arraycopy(arr, 0, resizedArray, 0, leftBoundIndex + 1);
+//        System.arraycopy(arr, rightBoundIndex, resizedArray, leftBoundIndex + 1 + 8, arr.length - (leftBoundIndex + 1));
+//        arr = resizedArray;
+//    }
 
     /* Adds an item of type T to the front of the deque. */
     public void addFirst(T item) {
         // If the array is full, add 8 spaces before the existing array.
-        if (size == arr.length) {
-            resizeArrayHelper(nextFirst);
-            nextFirst += 8;
-        }
         arr[nextFirst] = item;
-        nextFirst = leftIndexOfInput(nextFirst);
+//        nextFirst = leftIndexOfInput(nextFirst);
         size++;
+        nextFirst = leftIndexOfInput(nextFirst);
+        if (size == arr.length) {
+            arr = resizeArray();
+            nextFirst = arr.length - 1;
+            nextLast = size;
+        }
     }
 
     /* Adds an item of type T to the back of the deque. */
     public void addLast(T item) {
         // If the array is full, add 8 spaces before the existing array.
-        if (size == arr.length) {
-            resizeArrayHelper(nextFirst);
-            nextFirst += 8;
-        }
         arr[nextLast] = item;
-        nextLast = rightIndexOfInput(nextLast);
         size++;
+        if (size == arr.length) {
+            arr = resizeArray();
+            nextFirst = arr.length - 1;
+            nextLast = size;
+            return;
+        }
+        nextLast = rightIndexOfInput(nextLast);
     }
 
     /* Returns true if deque is empty, false otherwise. */
@@ -95,18 +121,22 @@ public class ArrayDeque<T> {
     /* Prints the items in the deque from first to
     last, separated by a space. */
     public void printDeque() {
-        int headIndex = getHeadIndex();
-        int tailIndex = getTailIndex();
-        T[] printArr = (T[]) new Object[arr.length];
-        if (judgeWhetherTurning()) {
-            System.arraycopy(arr, headIndex, printArr, 0, arr.length - headIndex);
-            System.arraycopy(arr, 0, printArr, arr.length - headIndex, headIndex);
-        } else {
-            printArr = arr;
-        }
-        for (int i = 0; i < size; i++) {
+        T[] printArr = traverseDeque();
+        for (int i = 0; i < printArr.length; i++) {
             System.out.print(printArr[i] + " ");
         }
+//        int headIndex = getHeadIndex();
+//        int tailIndex = getTailIndex();
+//        T[] printArr = (T[]) new Object[arr.length];
+//        if (judgeWhetherTurning()) {
+//            System.arraycopy(arr, headIndex, printArr, 0, arr.length - headIndex);
+//            System.arraycopy(arr, 0, printArr, arr.length - headIndex, headIndex);
+//        } else {
+//            printArr = arr;
+//        }
+//        for (int i = 0; i < size; i++) {
+//            System.out.print(printArr[i] + " ");
+//        }
     }
 
     private void remove8SpareSpace(int startSpareSpaceIndex) {
@@ -167,7 +197,7 @@ public class ArrayDeque<T> {
         T itemToBeReturned = arr[nextLast];
 //        arr[nextLast] = null; // Deleting this piece of shit oh code instead to meet the checking of the
         // gradescope though I don't know why. It bothered me for entire 2 days!!
-        if (arr.length > 16 && size / arr.length < 0.25) {
+        if (arr.length > 16 && arr.length / size > 4) {
             resizeDequeAfterRemoval();
         }
         return itemToBeReturned;
