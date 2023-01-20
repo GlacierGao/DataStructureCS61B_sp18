@@ -145,9 +145,16 @@ public class ArrayDeque<T> {
 
     private void remove8SpareSpace(int startSpareSpaceIndex) {
         T[] newArray = (T[]) new Object[arr.length - 8];
-        System.arraycopy(arr, 0, newArray, 0, startSpareSpaceIndex);
-        System.arraycopy(arr, startSpareSpaceIndex + 8, newArray,
-                startSpareSpaceIndex, arr.length - startSpareSpaceIndex - 8);
+//        System.arraycopy(arr, 0, newArray, 0, startSpareSpaceIndex);
+//        System.arraycopy(arr, startSpareSpaceIndex + 8, newArray,
+//                startSpareSpaceIndex, arr.length - startSpareSpaceIndex - 8);
+//        arr = newArray;
+        int headIndex = getHeadIndex();
+        int tailIndex = getTailIndex();
+        int indexOfTD = 0;
+        for (int i = headIndex; indexOfTD < size; i = rightIndexOfInput(i), indexOfTD++) {
+            newArray[indexOfTD] = arr[i];
+        }
         arr = newArray;
     }
 
