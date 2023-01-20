@@ -30,8 +30,6 @@ public class ArrayDeque<T> {
         T[] resizedArray = (T[]) new Object[arr.length + 8];
         T[] traversedArray = traverseDeque();
         System.arraycopy(traversedArray, 0, resizedArray, 0, traversedArray.length);
-//        nextFirst = resizedArray.length - 1;
-//        nextLast = traversedArray.length;
         return resizedArray;
     }
 
@@ -70,13 +68,12 @@ public class ArrayDeque<T> {
         // If the array is full, add 8 spaces before the existing array.
         arr[nextLast] = item;
         size++;
+        nextLast = rightIndexOfInput(nextLast);
         if (size == arr.length) {
             arr = resizeArray();
             nextFirst = arr.length - 1;
             nextLast = size;
-            return;
         }
-        nextLast = rightIndexOfInput(nextLast);
     }
 
     /* Returns true if deque is empty, false otherwise. */
