@@ -53,10 +53,10 @@ public class Percolation {
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
         outOfBoundCheck(row, col);
-        grid[row][col] = OPEN;
         if (!isOpen(row, col)) {
             openedN++;
         }
+        grid[row][col] = OPEN;
         if (row == 0) {
             ufWithoutBottom.union(TOP, xyTo1D(row, col));
             uf.union(TOP, xyTo1D(row, col));
