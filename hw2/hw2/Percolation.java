@@ -54,7 +54,9 @@ public class Percolation {
     public void open(int row, int col) {
         outOfBoundCheck(row, col);
         grid[row][col] = OPEN;
-        openedN++;
+        if (!isOpen(row, col)) {
+            openedN++;
+        }
         if (row == 0) {
             ufWithoutBottom.union(TOP, xyTo1D(row, col));
             uf.union(TOP, xyTo1D(row, col));
@@ -101,27 +103,9 @@ public class Percolation {
 
     // use for unit testing (not required)
     public static void main(String[] args) {
-        Percolation g = new Percolation(5);
-        boolean t = g.isFull(0, 0); // true
+        Percolation g = new Percolation(3);
+        boolean t = g.isFull(0, 0); // false
         int tN = g.numberOfOpenSites(); // 0
-        g.open(1, 3);
-        t = g.isFull(1, 3); // false
-        t = g.isOpen(1, 3); // true
-        t = g.isFull(2, 2); // false
-        t = g.isOpen(2, 2); // false
-        g.open(2, 3);
-        g.open(3, 3);
-        g.open(0, 3);
-        t = g.isOpen(0, 3); // true
-        t = g.isFull(0, 3); // true
-        t = g.isFull(3, 3); // true
-        g.open(3, 4);
-        t = g.percolates(); // false
-        g.open(4, 4);
-        t = g.percolates(); // false
-        tN = g.numberOfOpenSites(); // 6
-        g.open(4, 0);
-        boolean tBackwashCheck = g.isOpen(4, 0); // true
-        tBackwashCheck = g.isFull(4, 0); // false
+
     }
 }
