@@ -4,9 +4,8 @@ import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
-    private int N; // not necessary
     private int T;
-    private int[] xt;
+    private double[] xt;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -14,8 +13,7 @@ public class PercolationStats {
             throw new IllegalArgumentException();
         }
         this.T = T;
-        this.N = N;
-        xt = new int[T];
+        xt = new double[T];
         for (int i = 0; i < T; i++) {
             Percolation g = pf.make(N);
             int[] toBeOpened = StdRandom.permutation(N * N);
@@ -24,7 +22,7 @@ public class PercolationStats {
                 int col = toBeOpened[j] - row * N;
                 g.open(row, col);
             }
-            xt[i] = g.numberOfOpenSites();
+            xt[i] = g.numberOfOpenSites() / (N * N * 1.0); // 两int相除默认结果int
         }
     }
 
