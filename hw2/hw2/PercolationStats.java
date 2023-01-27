@@ -21,7 +21,7 @@ public class PercolationStats {
             int[] toBeOpened = StdRandom.permutation(N * N);
             for (int j = 0; !g.percolates(); j++) {
                 int row = toBeOpened[j] / N;
-                int col = toBeOpened[j] - row;
+                int col = toBeOpened[j] - row * N;
                 g.open(row, col);
             }
             xt[i] = g.numberOfOpenSites();
@@ -51,4 +51,10 @@ public class PercolationStats {
     public double confidenceHigh() {
         return mean() + (1.96 * stddev() / Math.sqrt(T));
     }
+
+    /*
+    public static void main(String[] args) {
+        PercolationFactory pff = new PercolationFactory();
+        PercolationStats pss = new PercolationStats(20, 10, pff);
+    } */
 }
