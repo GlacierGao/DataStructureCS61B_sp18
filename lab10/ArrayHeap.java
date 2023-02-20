@@ -1,5 +1,6 @@
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A Generic heap class. Unlike Java's priority queue, this heap doesn't just
@@ -28,7 +29,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+//        return 0;
+        return 2 * i;
     }
 
     /**
@@ -36,7 +38,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+//        return 0;
+        return 2 * i + 1;
     }
 
     /**
@@ -44,7 +47,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int parentIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+//        return 0;
+        return i / 2;
     }
 
     /**
@@ -108,7 +112,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        return;
+//        return;
+        while (min(index, parentIndex(index)) == index && parentIndex(index) >= 1) {
+            swap(index, parentIndex(index));
+            index = parentIndex(index);
+        }
     }
 
     /**
@@ -119,7 +127,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        return;
+//        return;
+        while (index * 2 <= size) {
+            int smallChild = index * 2;
+            smallChild = min(smallChild, smallChild + 1); // the node is swapped with the smaller one between lC and rC
+            if (min(smallChild, index) == index) { // judge if it's necessary to continue to swap
+                return;
+            }
+            swap(smallChild, index);
+            index = smallChild;
+        }
     }
 
     /**
@@ -134,6 +151,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         /* TODO: Your code here! */
+        size++;
+        Node newNode = new Node(item, priority);
+        contents[size] = newNode;
+        swim(size);
     }
 
     /**
@@ -143,7 +164,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T peek() {
         /* TODO: Your code here! */
-        return null;
+//        return null;
+        return contents[1].myItem;
     }
 
     /**
@@ -158,7 +180,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        return null;
+//        return null;
+        T m = contents[1].myItem;
+        contents[1] = null;
+        swap(1, size);
+        size--;
+        sink(1);
+        return m;
     }
 
     /**
@@ -181,7 +209,23 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
-        return;
+//        return;
+        int index = searchNodeIndex(item);
+        double oldPrio = contents[index].myPriority;
+        if (oldPrio < priority) {
+            sink(index);
+        } else if (oldPrio > priority) {
+            swim(index);
+        }
+    }
+
+    private int searchNodeIndex(T item) {
+        for (int i = 1; i <= size; i++) {
+            if (contents[i].myItem.equals(item)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
@@ -238,7 +282,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
@@ -253,7 +297,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
 
-    /** Helper function to resize the backing array when necessary. */
+    /**
+     * Helper function to resize the backing array when necessary.
+     */
     private void resize(int capacity) {
         Node[] temp = new ArrayHeap.Node[capacity];
         for (int i = 1; i < this.contents.length; i++) {
