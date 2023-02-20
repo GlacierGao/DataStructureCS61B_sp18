@@ -212,6 +212,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 //        return;
         int index = searchNodeIndex(item);
         double oldPrio = contents[index].myPriority;
+        contents[index].myPriority = priority;
         if (oldPrio < priority) {
             sink(index);
         } else if (oldPrio > priority) {
@@ -458,6 +459,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             assertEquals(expected[i], pq.removeMin());
             i += 1;
         }
+    }
+
+    @Test
+    public void testChangePriority() {
+        ArrayHeap<String> pq = new ArrayHeap<>();
+        pq.size = 7;
+        for (int i = 1; i <= 7; i++) {
+            pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i * 1.0);
+        }
+        pq.changePriority("x3", 6.5);
+        assertEquals("x3", pq.contents[6].myItem);
+        pq.changePriority("x1", 8.0);
+        assertEquals("x2", pq.contents[1].myItem);
+        assertEquals("x1", pq.contents[4].myItem);
     }
 
 }
