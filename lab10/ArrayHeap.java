@@ -122,7 +122,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     /**
      * Bubbles down the node currently at the given index.
      */
-    private void sink(int index) {
+    private void sink(int index) { // 为什么index>size？？size更新有问题
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
@@ -184,8 +184,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         T m = contents[1].myItem;
         contents[1] = null;
         swap(1, size);
-        size--;
         sink(1);
+        size--;
         return m;
     }
 
