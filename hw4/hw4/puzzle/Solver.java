@@ -39,7 +39,8 @@ public class Solver {
                 break;
             } else {
                 for (WorldState worldState : X.state.neighbors()) {
-                    if (!worldState.equals(X.state)) {
+                    SearchNode prevSerNode = X.prevSN;
+                    if (prevSerNode == null || (prevSerNode != null && !worldState.equals(prevSerNode.state))) {
                         toBeMovedSequence.insert(new SearchNode(worldState, X.movesNumFromInit + 1, X));
                     }
                 }
