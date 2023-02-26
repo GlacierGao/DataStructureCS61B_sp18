@@ -1,6 +1,8 @@
 package hw4.puzzle;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestBoard {
     @Test
@@ -24,4 +26,21 @@ public class TestBoard {
         x[1][1] = 1000;
         assertEquals("Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!", 3, b.tileAt(1, 1));
     }
-} 
+
+    @Test
+    public void testEqualsa012() {
+        int r = 5;
+        int c = 5;
+        int[][] x = {{0, 1, 16, 22, 15},
+                {18, 23, 21, 11, 9},
+                {7, 17, 13, 20, 14},
+                {10, 2, 24, 4, 12},
+                {6, 8, 5, 19, 3}};
+        Board a = new Board(x);
+        assertEquals(23, a.tileAt(1, 1));
+        assertEquals(13, a.tileAt(2, 2));
+        assertEquals(4, a.tileAt(3, 3));
+        assertEquals(0, a.tileAt(0, 0));
+        assertEquals(15, a.tileAt(0, 4));
+    }
+}

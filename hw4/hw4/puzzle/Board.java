@@ -90,11 +90,11 @@ public class Board implements WorldState {
         return ans;
     }
 
-    private int convertToGoalIndex(int i, int j) {
-        if (i == N - 1 && j == N - 1) {
+    private int convertToGoalIndex(int r, int c) {
+        if (r == N - 1 && c == N - 1) {
             return 0;
         }
-        return N * (i + 1) + (j + 1);
+        return r * N + c + 1;
     }
 
     private int getCol(int goalIndex) {
@@ -142,6 +142,9 @@ public class Board implements WorldState {
             return false;
         }
         Board other = (Board) y;
+        if (this.N != other.N) {
+            return false;
+        }
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (b[i][j] != other.b[i][j]) {
