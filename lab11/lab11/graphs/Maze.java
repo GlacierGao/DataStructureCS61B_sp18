@@ -1,13 +1,12 @@
 package lab11.graphs;
 
-import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdDraw;
 
-import java.util.Random;
-import java.awt.Color;
-
-import java.util.Observer;
+import java.awt.*;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
