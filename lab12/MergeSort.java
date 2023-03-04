@@ -3,13 +3,13 @@ import edu.princeton.cs.algs4.Queue;
 public class MergeSort {
     /**
      * Removes and returns the smallest item that is in q1 or q2.
-     *
+     * <p>
      * The method assumes that both q1 and q2 are in sorted order, with the smallest item first. At
      * most one of q1 or q2 can be empty (but both cannot be empty).
      *
-     * @param   q1  A Queue in sorted order from least to greatest.
-     * @param   q2  A Queue in sorted order from least to greatest.
-     * @return      The smallest item that is in q1 or q2.
+     * @param q1 A Queue in sorted order from least to greatest.
+     * @param q2 A Queue in sorted order from least to greatest.
+     * @return The smallest item that is in q1 or q2.
      */
     private static <Item extends Comparable> Item getMin(
             Queue<Item> q1, Queue<Item> q2) {
@@ -31,36 +31,85 @@ public class MergeSort {
         }
     }
 
-    /** Returns a queue of queues that each contain one item from items. */
+    /**
+     * Returns a queue of queues that each contain one item from items.
+     */
     private static <Item extends Comparable> Queue<Queue<Item>>
-            makeSingleItemQueues(Queue<Item> items) {
+    makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+//        return null;
+        Queue<Queue<Item>> singleItemQueues = new Queue<>();
+        while (!items.isEmpty()) {
+            Item nIt = items.dequeue();
+            Queue<Item> nItQue = new Queue<>();
+            nItQue.enqueue(nIt);
+            singleItemQueues.enqueue(nItQue);
+        }
+        return singleItemQueues;
     }
 
     /**
      * Returns a new queue that contains the items in q1 and q2 in sorted order.
-     *
+     * <p>
      * This method should take time linear in the total number of items in q1 and q2.  After
      * running this method, q1 and q2 will be empty, and all of their items will be in the
      * returned queue.
      *
-     * @param   q1  A Queue in sorted order from least to greatest.
-     * @param   q2  A Queue in sorted order from least to greatest.
-     * @return      A Queue containing all of the q1 and q2 in sorted order, from least to
-     *              greatest.
-     *
+     * @param q1 A Queue in sorted order from least to greatest.
+     * @param q2 A Queue in sorted order from least to greatest.
+     * @return A Queue containing all of the q1 and q2 in sorted order, from least to
+     * greatest.
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+//        return null;
+        Queue<Item> mergedQue = new Queue<>();
+        while (!q1.isEmpty() || !q2.isEmpty()) {
+            mergedQue.enqueue(getMin(q1, q2));
+        }
+        return mergedQue;
     }
 
-    /** Returns a Queue that contains the given items sorted from least to greatest. */
+    /**
+     * Returns a Queue that contains the given items sorted from least to greatest.
+     */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+//        return items;
+        if (items.size() <= 1) {
+            return items;
+        }
+        Queue<Queue<Item>> singleItems = makeSingleItemQueues(items);
+        while (singleItems.size() != 1) {
+            Queue<Queue<Item>> qqq = new Queue<>();
+            while (!singleItems.isEmpty()) {
+                Queue<Item> q1 = singleItems.dequeue();
+                Queue<Item> q2 = singleItems.isEmpty() ? new Queue<>() : singleItems.dequeue();
+                Queue<Item> merged2Q = mergeSortedQueues(q1, q2);
+                qqq.enqueue(merged2Q);
+            }
+            singleItems = qqq;
+        }
+        return singleItems.dequeue();
+    }
+
+    public static void main(String[] args) {
+        Queue<String> test = new Queue<>();
+//        test.enqueue("RouRouBaoBei");
+//        test.enqueue("love");
+//        test.enqueue("heart");
+        test.enqueue("3");
+        test.enqueue("8");
+        test.enqueue("2");
+        test.enqueue("6");
+        test.enqueue("4");
+        test.enqueue("4");
+        test.enqueue("1");
+        test.enqueue("5");
+        System.out.println(test);
+        Queue<String> testMerged = MergeSort.mergeSort(test);
+        System.out.println(testMerged);
     }
 }
