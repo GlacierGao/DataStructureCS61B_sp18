@@ -39,11 +39,16 @@ public class MergeSort {
         // Your code here!
 //        return null;
         Queue<Queue<Item>> singleItemQueues = new Queue<>();
-        while (!items.isEmpty()) {
-            Item nIt = items.dequeue();
-            Queue<Item> nItQue = new Queue<>();
-            nItQue.enqueue(nIt);
-            singleItemQueues.enqueue(nItQue);
+//        while (!items.isEmpty()) {
+//            Item nIt = items.dequeue();
+//            Queue<Item> nItQue = new Queue<>();
+//            nItQue.enqueue(nIt);
+//            singleItemQueues.enqueue(nItQue);
+//        }
+        for (Item item : items) {
+            Queue<Item> singleItem = new Queue<>();
+            singleItem.enqueue(item);
+            singleItemQueues.enqueue(singleItem);
         }
         return singleItemQueues;
     }
