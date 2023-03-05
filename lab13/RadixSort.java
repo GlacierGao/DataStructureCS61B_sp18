@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class for doing Radix sort
  *
@@ -25,16 +27,19 @@ public class RadixSort {
         }
 
         // pad all the String with empty values ont their right
-        for (String ascii : asciis) {
-            if (ascii.length() < maxCharacterNums) {
-                while (ascii.length() != maxCharacterNums) {
-                    ascii = ascii.concat("_");
+//        for (String ascii : asciis) { !!!WRONG! 想想这句话的实质，后面只改变ascii变量的话没法储存在array里！
+        for (int i = 0; i < asciis.length; i++) {
+            if (asciis[i].length() < maxCharacterNums) {
+                while (asciis[i].length() != maxCharacterNums) {
+                    asciis[i] = asciis[i].concat("_");
                 }
             }
         }
 
+        System.out.println(Arrays.toString(asciis));
+
         // sort the String arr--asciis
-        for (int i = asciis.length - 1; i >= 0; i--) {
+        for (int i = maxCharacterNums - 1; i >= 0; i--) {
             sortHelperLSD(asciis, i);
         }
 
@@ -105,5 +110,12 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] test = {"rr", "baobei", "baby", "apple", "love", "heart", "ok"};
+        System.out.println(Arrays.toString(test));
+        String[] sortedTest = sort(test);
+        System.out.println(Arrays.toString(sortedTest));
     }
 }
