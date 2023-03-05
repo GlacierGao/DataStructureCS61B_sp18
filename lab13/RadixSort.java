@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Class for doing Radix sort
  *
@@ -35,9 +33,7 @@ public class RadixSort {
                 }
             }
         }
-
-        System.out.println(Arrays.toString(asciis));
-
+//        System.out.println(Arrays.toString(asciis));
         // sort the String arr--asciis
         for (int i = maxCharacterNums - 1; i >= 0; i--) {
             sortHelperLSD(asciis, i);
@@ -111,11 +107,11 @@ public class RadixSort {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
-
-    public static void main(String[] args) {
-        String[] test = {"rr", "baobei", "baby", "apple", "love", "heart", "ok"};
-        System.out.println(Arrays.toString(test));
-        String[] sortedTest = sort(test);
-        System.out.println(Arrays.toString(sortedTest));
-    }
+//
+//    public static void main(String[] args) {
+//        String[] test = {"rr", "baobei", "baby", "apple", "love", "heart", "ok"};
+//        System.out.println(Arrays.toString(test));
+//        String[] sortedTest = sort(test);
+//        System.out.println(Arrays.toString(sortedTest));
+//    }
 }
