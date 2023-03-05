@@ -36,7 +36,7 @@ public class RadixSort {
 //        System.out.println(Arrays.toString(asciis));
         // sort the String arr--asciis
         for (int i = maxCharacterNums - 1; i >= 0; i--) {
-            sortHelperLSD(asciis, i);
+            asciis = sortHelperLSD(asciis, i);
         }
 
         return asciis;
@@ -49,7 +49,7 @@ public class RadixSort {
      * @param asciis Input array of Strings
      * @param index  The position to sort the Strings on.
      */
-    private static void sortHelperLSD(String[] asciis, int index) {
+    private static String[] sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
 //        return;
         // step -1 : convert the chars of all the "ascii".charAt[index] to int that are ascii numbers
@@ -85,13 +85,15 @@ public class RadixSort {
 
         // step 3: allocate the initial asciis to their right places according to the specific sorted index
         // very ugly implementation because my brain has already shut down
-        String[] oldAsciis = asciis.clone();
+//        String[] oldAsciis = asciis.clone();
+        String[] newAsciis = new String[asciis.length];
         for (int ii = 0; ii < asciis.length; ii++) { // traverse the ascii numbers of the asciis--index--char
             int num = asciisIndexCharNum[ii];
             int i = numIndex[num - min]; // "i" refers to the sorted place of all "ascii" / actual refers to the sorted place of all ascii numbers
-            asciis[i] = oldAsciis[ii]; // sort the old asciis
+            newAsciis[i] = asciis[ii]; // sort the old asciis
             numIndex[num - min]++;
         }
+        return newAsciis;
     }
 
     /**
