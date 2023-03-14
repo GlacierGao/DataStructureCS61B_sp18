@@ -342,4 +342,9 @@ public class MapServer {
         }
         return sb.toString();
     }
+
+    public Map<String, Object> getMapRaster(Map<String, Double> params) {
+
+    }
 }
+
